@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="pt">
+	<head>
+		<meta charset="UTF-8" />
+		<title>Simulação de Empréstimo</title>
+		<link rel="stylesheet" href="styles.css" />
+		<script src="script.js" defer></script>
+	</head>
+	<body>
+		<div class="container">
+			<h1>Simulação de Empréstimo</h1>
+			<div>
+				<label for="valorTotal">Valor Total do Empréstimo:</label>
+				<input type="text" id="valorTotal" />
+			</div>
+			<div>
+				<label for="quantidadeParcelas">Quantidade de Parcelas:</label>
+				<input type="text" id="quantidadeParcelas" />
+			</div>
+			<button onclick="calcularParcelas()">
+				Calcular Parcelas Decrescentes
+			</button>
+			<div id="result" class="result"></div>
+		</div>
+	</body>
+</html>
