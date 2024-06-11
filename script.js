@@ -1,27 +1,47 @@
-function calcularParcelas() {
-	let valorTotal = parseFloat(document.getElementById("valorTotal").value);
-	let quantidadeParcelas = parseInt(
-		document.getElementById("quantidadeParcelas").value
-	);
-	let resultDiv = document.getElementById("result");
-
-	if (
-		isNaN(valorTotal) ||
-		isNaN(quantidadeParcelas) ||
-		valorTotal <= 0 ||
-		quantidadeParcelas <= 0
-	) {
-		resultDiv.innerHTML = "<p>Por favor, digite valores válidos.</p>";
-		return;
+class Emprestimo {
+	constructor(valorTotal, quantidadeParcelas) {
+		this.valorTotal = parseFloat(valorTotal);
+		this.quantidadeParcelas = parseInt(quantidadeParcelas);
+		this.resultDiv = document.getElementById("result");
 	}
 
-	resultDiv.innerHTML = "<h2>Valores das Parcelas Decrescentes:</h2>";
+	validarEntrada() {
+		if (
+			isNaN(this.valorTotal) ||
+			isNaN(this.quantidadeParcelas) ||
+			this.valorTotal <= 0 ||
+			this.quantidadeParcelas <= 0
+		) {
+			this.resultDiv.innerHTML = "<p>Por favor, digite valores válidos.</p>";
+			return false;
+		}
+		return true;
+	}
 
-	let parcelaAtual = valorTotal / quantidadeParcelas;
-	let decremento = parcelaAtual / quantidadeParcelas;
+	calcularParcelas() {
+		if (!this.validarEntrada()) {
+			return;
+		}
 
-	for (let i = 1; i <= quantidadeParcelas; i++) {
-		resultDiv.innerHTML += `<p>Parcela ${i}: R$${parcelaAtual.toFixed(2)}</p>`;
-		parcelaAtual -= decremento;
+		this.resultDiv.innerHTML = "<h2>Valores das Parcelas Decrescentes:</h2>";
+		let parcelaAtual = this.valorTotal / this.quantidadeParcelas;
+		const decremento = parcelaAtual / this.quantidadeParcelas;
+
+		for (let i = 1; i <= this.quantidadeParcelas; i++) {
+			this.resultDiv.innerHTML += `<p>Parcela ${i}: R$${parcelaAtual.toFixed(
+				2
+			)}</p>`;
+			parcelaAtual -= decremento;
+		}
 	}
 }
+
+const simulador = {
+	calcularParcelas: function () {
+		const valorTotal = document.getElementById("valorTotal").value;
+		const quantidadeParcelas =
+			document.getElementById("quantidadeParcelas").value;
+		const emprestimo = new Emprestimo(valorTotal, quantidadeParcelas);
+		emprestimo.calcularParcelas();
+	},
+};
